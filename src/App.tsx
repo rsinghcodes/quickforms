@@ -1,10 +1,8 @@
-import type { ReactElement } from 'react';
-
-function App(): ReactElement {
+function App() {
   return (
-    <div>
-      <h3>Quick Form</h3>
-    </div>
+    <button type='button' className='btn'>
+      Hello daisyUI
+    </button>
   );
 }
 export default App;
