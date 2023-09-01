@@ -15,15 +15,7 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'no-dupe-else-if': 'error',
-    'no-promise-executor-return': 'error',
-    'no-unreachable-loop': 'error',
-    'react-hooks/rules-of-hooks': 'error',
     'react/react-in-jsx-scope': 'off',
-    'react-hooks/exhaustive-deps': 'warn',
-    'tailwindcss/classnames-order': 'warn',
-    'tailwindcss/no-contradicting-classname': 'error',
-    'react/prop-types': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
