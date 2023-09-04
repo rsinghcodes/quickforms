@@ -16,10 +16,13 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/label-has-for': 'off',
+    'jsx-a11y/no-noninteractive-tabindex': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['vite.config.ts']
+        devDependencies: ['vite.config.ts', 'jest.setup.ts', '**/__tests__/**']
       }
     ]
   },
@@ -45,7 +48,7 @@ module.exports = {
       }
     },
     {
-      files: ['vite.config.ts'],
+      files: ['vite.config.ts', 'jest.setup.ts'],
       parserOptions: {
         project: ['./tsconfig.node.json']
       }
