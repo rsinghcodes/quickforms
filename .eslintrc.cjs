@@ -22,7 +22,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['vite.config.ts', 'jest.setup.ts', '**/__tests__/**']
+        devDependencies: ['vite.config.ts', 'jest.setup.ts', 'src/__tests__/**', 'src/**/*.{test,spec}.{ts,tsx}']
       }
     ]
   },
