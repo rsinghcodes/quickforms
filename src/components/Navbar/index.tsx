@@ -1,19 +1,26 @@
-import { BiSun } from 'react-icons/bi';
+import { BiMoon, BiSun } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div className='navbar bg-base-100'>
+    <div className='navbar z-10 bg-base-100'>
       <div className='flex-1'>
         <Link to='/' className='btn btn-ghost text-xl normal-case'>
           Quick Forms
         </Link>
       </div>
       <div className='flex-none'>
-        <div className='dropdown-end dropdown '>
-          <button type='button' className='btn btn-circle btn-ghost'>
-            <BiSun size={20} />
-          </button>
+        <div className='tooltip tooltip-bottom' data-tip='Switch theme'>
+          <label className='swap swap-rotate mr-2'>
+            {/* this hidden checkbox controls the state */}
+            <input type='checkbox' />
+
+            {/* sun icon */}
+            <BiSun size={24} className='swap-on' />
+
+            {/* moon icon */}
+            <BiMoon size={24} className='swap-off' />
+          </label>
         </div>
         {/* <Link to='/login' className='btn btn-primary'>
           Login
@@ -26,7 +33,7 @@ function Navbar() {
           </div>
           <ul tabIndex={0} className='menu dropdown-content rounded-box menu-sm z-[1] mt-3 w-52 bg-base-100 p-2 shadow'>
             <li>
-              <Link to='/' className='justify-between'>
+              <Link to='/profile' className='justify-between'>
                 Profile
                 <span className='badge'>New</span>
               </Link>

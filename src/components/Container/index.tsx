@@ -7,9 +7,9 @@ interface Props {
 
 function Container({ children }: Props) {
   return (
-    <div>
+    <div className='bg-base-200'>
       <Navbar />
-      <div className='hero min-h-[90vh] bg-base-200 lg:px-10'>{children}</div>
+      <div className='hero min-h-screen lg:px-12'>{children}</div>
     </div>
   );
 }
