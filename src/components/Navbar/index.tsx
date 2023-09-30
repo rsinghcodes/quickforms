@@ -25,7 +25,7 @@ function Navbar() {
         {/* <Link to='/login' className='btn btn-primary'>
           Login
         </Link> */}
-        <div className='dropdown-end dropdown'>
+        <div className='dropdown dropdown-end'>
           <div tabIndex={0} className='avatar btn btn-circle btn-ghost'>
             <div className='w-8 rounded-full'>
               <img src='https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg' alt='profile pic' />
@@ -37,9 +37,6 @@ function Navbar() {
                 Profile
                 <span className='badge'>New</span>
               </Link>
-            </li>
-            <li>
-              <Link to='/'>Settings</Link>
             </li>
             <li>
               <Link to='/'>Logout</Link>
