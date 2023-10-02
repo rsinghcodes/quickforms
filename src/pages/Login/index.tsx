@@ -41,7 +41,7 @@ function Login() {
                 <label className='label'>
                   <span className='label-text'>Email</span>
                 </label>
-                <Field name='email' className='input input-bordered' placeholder='email' />
+                <Field name='email' type='email' className='input input-bordered' placeholder='email' />
                 {touched.email && Boolean(errors.email) && (
                   <label className='label'>
                     <span className='label-text-alt text-red-400'>
