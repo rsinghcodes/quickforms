@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import Container from '../../components/Container';
 
+const RegisterSchema = Yup.object().shape({
+  fullname: Yup.string()
+    .min(2, 'Fullname is too short!')
+    .max(50, 'Fullname is too long!')
+    .required('Fullname is required'),
+  email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .max(30, 'Password is too long!')
+    .required('Password is required')
+});
+
 function Home() {
   const [visible, setVisible] = useState(false);
-
-  const RegisterSchema = Yup.object().shape({
-    fullname: Yup.string()
-      .min(2, 'Fullname is too Short!')
-      .max(50, 'Fullname is too Long!')
-      .required('Fullname is required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .max(30, 'Password is too Long!')
-      .required('Password is required')
-  });
 
   const formik = useFormik({
     initialValues: {
