@@ -7,11 +7,10 @@ module.exports = {
     'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:tailwindcss/recommended'
+    'plugin:prettier/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
-  plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier', 'tailwindcss'],
+  plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],

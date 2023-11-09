@@ -1,98 +1,85 @@
-import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
+import Key from '@mui/icons-material/Key';
+import { Button, FormControl, FormLabel, Input, LinearProgress, Link, Sheet, Stack, Typography } from '@mui/joy';
 import { useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
-import Container from '../../components/Container';
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-  password: Yup.string().required('Password is required')
-});
+import { Link as RouterLink } from 'react-router-dom';
 
 function Login() {
-  const [visible, setVisible] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: ''
-    },
-    validationSchema: LoginSchema,
-    onSubmit: () => {}
-  });
-
-  const { errors, touched, handleSubmit } = formik;
-
-  const showOrHidePassword = () => {
-    setVisible(!visible);
-  };
-
+  const [value, setValue] = useState('');
+  const minLength = 12;
   return (
-    <Container>
-      <div className='hero-content w-full flex-col lg:flex-row'>
-        <div className='text-center lg:mr-11 lg:text-left'>
-          <h1 className='py-6 text-5xl font-bold'>Login to create Quick Forms!</h1>
+    <main>
+      <Sheet
+        sx={{
+          width: 300,
+          mx: 'auto',
+          my: 14,
+          py: 3,
+          px: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 'sm',
+          boxShadow: 'md'
+        }}
+        variant='outlined'
+      >
+        <div>
+          <Typography level='h4' component='h1'>
+            <b>Welcome!</b>
+          </Typography>
+          <Typography level='body-sm'>Sign in to continue.</Typography>
         </div>
-        <div className='card w-full max-w-sm shrink-0 bg-base-100 shadow-2xl'>
-          <FormikProvider value={formik}>
-            <Form autoComplete='off' noValidate onSubmit={handleSubmit} className='card-body'>
-              <div className='form-control'>
-                <label className='label'>
-                  <span className='label-text'>Email</span>
-                </label>
-                <Field name='email' type='email' className='input input-bordered' placeholder='email' />
-                {touched.email && Boolean(errors.email) && (
-                  <label className='label'>
-                    <span className='label-text-alt text-red-400'>
-                      <ErrorMessage name='email' />
-                    </span>
-                  </label>
-                )}
-              </div>
-              <div className='form-control'>
-                <label className='label'>
-                  <span className='label-text'>Password</span>
-                </label>
-                <div className='join'>
-                  <Field
-                    placeholder='password'
-                    className='input join-item input-bordered w-full'
-                    type={visible ? 'text' : 'password'}
-                    name='password'
-                  />
-                  <button type='button' className='btn join-item' onClick={showOrHidePassword}>
-                    {visible ? <AiOutlineEye size={20} /> : <AiOutlineEyeInvisible size={20} />}
-                  </button>
-                </div>
-                {touched.password && Boolean(errors.password) && (
-                  <label className='label'>
-                    <span className='label-text-alt text-red-400'>
-                      <ErrorMessage name='password' />
-                    </span>
-                  </label>
-                )}
-              </div>
-              <div className='flex items-center justify-end p-1'>
-                <button type='button' className='link-hover link label-text-alt'>
-                  Forgot password?
-                </button>
-              </div>
-              <div className='form-control mt-3'>
-                <button type='submit' className='btn btn-primary'>
-                  Login
-                </button>
-              </div>
-              <div className='flex items-center justify-center p-1'>
-                <Link to='/' className='link-hover link label-text-alt'>
-                  Dont have an account? SignUp
-                </Link>
-              </div>
-            </Form>
-          </FormikProvider>
-        </div>
-      </div>
-    </Container>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input name='email' type='email' placeholder='johndoe@email.com' />{' '}
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Stack
+            spacing={0.5}
+            sx={{
+              '--hue': Math.min(value.length * 10, 120)
+            }}
+          >
+            <Input
+              type='password'
+              placeholder='Type in here…'
+              startDecorator={<Key />}
+              value={value}
+              onChange={(event) => setValue(event.target.value)}
+            />
+            <LinearProgress
+              determinate
+              size='sm'
+              value={Math.min((value.length * 100) / minLength, 100)}
+              sx={{
+                bgcolor: 'background.level3',
+                color: 'hsl(var(--hue) 80% 40%)'
+              }}
+            />
+            <Typography level='body-xs' sx={{ alignSelf: 'flex-end', color: 'hsl(var(--hue) 80% 30%)' }}>
+              {value.length < 3 && 'Very weak'}
+              {value.length >= 3 && value.length < 6 && 'Weak'}
+              {value.length >= 6 && value.length < 10 && 'Strong'}
+              {value.length >= 10 && 'Very strong'}
+            </Typography>
+          </Stack>
+        </FormControl>
+
+        <Button sx={{ mt: 1 }}>Log in</Button>
+        <Typography
+          endDecorator={
+            <Link component={RouterLink} to='/sign-up'>
+              Sign up
+            </Link>
+          }
+          fontSize='sm'
+          sx={{ alignSelf: 'center' }}
+        >
+          Don&apos;t have an account?
+        </Typography>
+      </Sheet>
+    </main>
   );
 }
 
