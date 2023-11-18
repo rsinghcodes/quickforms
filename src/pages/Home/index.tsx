@@ -7,17 +7,17 @@ export default function HeroLeft01() {
   return (
     <TwoSidedLayout>
       <Typography level='h1' fontWeight='xl' fontSize='clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)'>
-        A large headlinerer about our product features & services
+        Create an online form as easily as creating a document
       </Typography>
       <Typography fontSize='lg' textColor='text.secondary' lineHeight='lg'>
-        A descriptive secondary text placeholder. Use it to explain your business offer better.
+        Select from multiple question types, drag-and-drop questions, and customize values as easily as pasting a list.{' '}
       </Typography>
       <Button size='lg' endDecorator={<ArrowForward fontSize='small' />}>
-        Get Started
+        Create Forms
       </Button>
       <Typography>
         Already a member?{' '}
-        <Link component={RouterLink} to='/login' fontWeight='lg'>
+        <Link component={RouterLink} to='/sign-in' fontWeight='lg'>
           Sign in
         </Link>
       </Typography>

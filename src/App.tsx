@@ -69,7 +69,7 @@ function App() {
         >
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/sign-in' element={<Login />} />
           </Routes>
         </Box>
       </Suspense>

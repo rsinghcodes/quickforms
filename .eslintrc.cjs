@@ -18,6 +18,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     'jsx-a11y/label-has-for': 'off',
     'jsx-a11y/no-noninteractive-tabindex': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {

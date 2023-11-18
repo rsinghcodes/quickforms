@@ -1,72 +1,118 @@
+import { InfoOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 import Key from '@mui/icons-material/Key';
-import { Button, FormControl, FormLabel, Input, LinearProgress, Link, Sheet, Stack, Typography } from '@mui/joy';
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  IconButton,
+  Input,
+  Link,
+  Sheet,
+  Stack,
+  Typography
+} from '@mui/joy';
+import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  email: Yup.string().email('Enter a valid email').required('Email is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required')
+});
 
 function Login() {
-  const [value, setValue] = useState('');
-  const minLength = 12;
+  const [showPassword, setShowPassword] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log('Values', values);
+    }
+  });
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
+
   return (
     <main>
       <Sheet
         sx={{
-          width: 300,
+          width: 400,
           mx: 'auto',
-          my: 14,
-          py: 3,
-          px: 2,
+          my: 16,
+          py: 4,
+          px: 4,
           display: 'flex',
           flexDirection: 'column',
-          gap: 2,
-          borderRadius: 'sm',
-          boxShadow: 'md'
+          gap: 4,
+          borderRadius: 'sm'
         }}
         variant='outlined'
       >
         <div>
-          <Typography level='h4' component='h1'>
+          <Typography level='h3' component='h3'>
             <b>Welcome!</b>
           </Typography>
           <Typography level='body-sm'>Sign in to continue.</Typography>
         </div>
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input name='email' type='email' placeholder='johndoe@email.com' />{' '}
-        </FormControl>
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Stack
-            spacing={0.5}
-            sx={{
-              '--hue': Math.min(value.length * 10, 120)
-            }}
-          >
-            <Input
-              type='password'
-              placeholder='Type in here…'
-              startDecorator={<Key />}
-              value={value}
-              onChange={(event) => setValue(event.target.value)}
-            />
-            <LinearProgress
-              determinate
-              size='sm'
-              value={Math.min((value.length * 100) / minLength, 100)}
-              sx={{
-                bgcolor: 'background.level3',
-                color: 'hsl(var(--hue) 80% 40%)'
-              }}
-            />
-            <Typography level='body-xs' sx={{ alignSelf: 'flex-end', color: 'hsl(var(--hue) 80% 30%)' }}>
-              {value.length < 3 && 'Very weak'}
-              {value.length >= 3 && value.length < 6 && 'Weak'}
-              {value.length >= 6 && value.length < 10 && 'Strong'}
-              {value.length >= 10 && 'Very strong'}
-            </Typography>
-          </Stack>
-        </FormControl>
-
-        <Button sx={{ mt: 1 }}>Log in</Button>
+        <FormikProvider value={formik}>
+          <Form noValidate onSubmit={handleSubmit}>
+            <FormControl error={Boolean(errors.email && touched.email)}>
+              <FormLabel>Email</FormLabel>
+              <Input type='email' placeholder='Enter your email...' {...getFieldProps('email')} />
+              {errors.email && touched.email && (
+                <FormHelperText>
+                  <InfoOutlined />
+                  {errors.email}
+                </FormHelperText>
+              )}
+            </FormControl>
+            <FormControl sx={{ mt: 2 }} error={Boolean(touched.password && errors.password)}>
+              <FormLabel>Password</FormLabel>
+              <Stack
+                spacing={0.5}
+                sx={{
+                  '--hue': Math.min(values.password.length * 10, 120)
+                }}
+              >
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder='Type your password...'
+                  startDecorator={<Key />}
+                  {...getFieldProps('password')}
+                  endDecorator={
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  }
+                />
+                {touched.password && errors.password && (
+                  <FormHelperText>
+                    <InfoOutlined />
+                    {errors.password}
+                  </FormHelperText>
+                )}
+              </Stack>
+            </FormControl>
+            <Button type='submit' sx={{ mt: 4 }} fullWidth>
+              Sign in
+            </Button>
+          </Form>
+        </FormikProvider>
         <Typography
           endDecorator={
             <Link component={RouterLink} to='/sign-up'>
