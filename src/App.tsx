@@ -3,11 +3,16 @@ import { Box, CircularProgress, CssBaseline, CssVarsProvider, IconButton, extend
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { BiSolidMoon, BiSolidSun } from 'react-icons/bi';
 import { Route, Routes } from 'react-router-dom';
+// components
+import DashboardContainer from './components/DashboardContainer';
 
 // pages
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Signup = lazy(() => import('./pages/Signup'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Forms = lazy(() => import('./pages/Forms'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 const theme = extendTheme({
   fontFamily: {
@@ -59,7 +64,7 @@ function App() {
       <ColorSchemeToggle />
       <Suspense
         fallback={
-          <Box sx={{ display: 'grid', placeItems: 'center', minHeight: '100vh' }}>
+          <Box sx={{ display: 'grid', placeItems: 'center', minHeight: '100dvh' }}>
             <CircularProgress size='lg' />
           </Box>
         }
@@ -75,9 +80,15 @@ function App() {
           }}
         >
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route index path='/' element={<Home />} />
             <Route path='/sign-in' element={<Login />} />
             <Route path='/sign-up' element={<Signup />} />
+            <Route path='/dashboard' element={<DashboardContainer />}>
+              <Route index element={<Dashboard />} />
+              <Route path='dashboard' element={<Dashboard />} />
+              <Route path='forms' element={<Forms />} />
+              <Route path='profile-settings' element={<Profile />} />
+            </Route>
           </Routes>
         </Box>
       </Suspense>
