@@ -1,10 +1,10 @@
 import { Box } from '@mui/joy';
-
 import { Outlet } from 'react-router-dom';
+
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-function Dashboard() {
+function DashboardContainer() {
   return (
     <div>
       <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
@@ -43,4 +43,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardContainer;

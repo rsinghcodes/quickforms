@@ -1,4 +1,4 @@
-import { Box } from '@mui/joy';
+import { Box, DialogContent, DialogTitle, Modal, ModalDialog } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Button from '@mui/joy/Button';
@@ -15,7 +15,9 @@ import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
 
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -26,6 +28,8 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CountrySelector from '../../components/CountrySelector';
 
 function Profile() {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -248,7 +252,7 @@ function Profile() {
           </Stack>
           <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
             <CardActions sx={{ pt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Button size='sm' variant='solid' color='danger'>
+              <Button size='sm' variant='solid' color='danger' onClick={() => setOpen(true)}>
                 Delete Account
               </Button>
               <div>
@@ -263,6 +267,63 @@ function Profile() {
           </CardOverflow>
         </Card>
       </Box>
+      <Transition in={open} timeout={400}>
+        {(state: string) => (
+          <Modal
+            keepMounted
+            open={!['exited', 'exiting'].includes(state)}
+            onClose={() => setOpen(false)}
+            slotProps={{
+              backdrop: {
+                sx: {
+                  opacity: 0,
+                  backdropFilter: 'none',
+                  transition: `opacity 400ms, backdrop-filter 400ms`,
+                  ...{
+                    entering: { opacity: 1, backdropFilter: 'blur(8px)' },
+                    entered: { opacity: 1, backdropFilter: 'blur(8px)' }
+                  }[state]
+                }
+              }
+            }}
+            sx={{
+              visibility: state === 'exited' ? 'hidden' : 'visible'
+            }}
+          >
+            <ModalDialog
+              sx={{
+                opacity: 0,
+                transition: `opacity 300ms`,
+                ...{
+                  entering: { opacity: 1 },
+                  entered: { opacity: 1 }
+                }[state]
+              }}
+            >
+              <DialogTitle>Delete Account</DialogTitle>
+              <DialogContent>
+                This action cannot be undone. This will permanently delete your account and remove your data from our
+                servers.
+              </DialogContent>
+              <Box
+                sx={{
+                  mt: 1,
+                  display: 'flex',
+                  gap: 1,
+                  flexDirection: { xs: 'column', sm: 'row-reverse' }
+                }}
+              >
+                <Button variant='solid' color='danger' onClick={() => setOpen(false)}>
+                  Continue
+                </Button>
+                <Button variant='outlined' color='neutral' onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
+              </Box>
+            </ModalDialog>
+          </Modal>
+        )}
+      </Transition>
     </>
   );
 }

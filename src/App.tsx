@@ -3,6 +3,7 @@ import { Box, CircularProgress, CssBaseline, CssVarsProvider, IconButton, extend
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { BiSolidMoon, BiSolidSun } from 'react-icons/bi';
 import { Route, Routes } from 'react-router-dom';
+
 // components
 import DashboardContainer from './components/DashboardContainer';
 
@@ -84,8 +85,7 @@ function App() {
             <Route path='/sign-in' element={<Login />} />
             <Route path='/sign-up' element={<Signup />} />
             <Route path='/dashboard' element={<DashboardContainer />}>
-              <Route index element={<Dashboard />} />
-              <Route path='dashboard' element={<Dashboard />} />
+              <Route index path='dashboard' element={<Dashboard />} />
               <Route path='forms' element={<Forms />} />
               <Route path='profile-settings' element={<Profile />} />
             </Route>

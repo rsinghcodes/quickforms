@@ -99,7 +99,7 @@ function Login() {
         <Typography
           endDecorator={
             <Link component={RouterLink} to='/sign-up'>
-              Sign in
+              Sign up
             </Link>
           }
           fontSize='sm'

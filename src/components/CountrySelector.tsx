@@ -1,10 +1,13 @@
-import AspectRatio from '@mui/joy/AspectRatio';
-import Autocomplete from '@mui/joy/Autocomplete';
-import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import FormControl, { FormControlProps } from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import Typography from '@mui/joy/Typography';
+import {
+  AspectRatio,
+  Autocomplete,
+  AutocompleteOption,
+  FormControl,
+  FormControlProps,
+  FormLabel,
+  ListItemDecorator,
+  Typography
+} from '@mui/joy';
 
 interface CountryType {
   code: string;
@@ -13,7 +16,6 @@ interface CountryType {
   suggested?: boolean;
 }
 
-// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
 const countries: readonly CountryType[] = [
   { code: 'AD', label: 'Andorra', phone: '376' },
   {
