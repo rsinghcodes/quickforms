@@ -7,15 +7,17 @@ import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
+  fullname: Yup.string().min(2).max(30).required('Full name is required'),
   email: Yup.string().email('Enter a valid email').required('Email is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required')
 });
 
-function Login() {
+function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
+      fullname: '',
       email: '',
       password: ''
     },
@@ -53,11 +55,21 @@ function Login() {
           <Typography level='h3' component='h3'>
             <b>Welcome!</b>
           </Typography>
-          <Typography level='body-sm'>Sign in to continue.</Typography>
+          <Typography level='body-sm'>Sign up to continue.</Typography>
         </div>
         <FormikProvider value={formik}>
           <Form noValidate onSubmit={handleSubmit}>
-            <FormControl error={Boolean(errors.email && touched.email)}>
+            <FormControl error={Boolean(errors.fullname && touched.fullname)}>
+              <FormLabel>Full name</FormLabel>
+              <Input type='text' placeholder='Enter your full name' {...getFieldProps('fullname')} />
+              {errors.fullname && touched.fullname && (
+                <FormHelperText>
+                  <InfoOutlined />
+                  {errors.fullname}
+                </FormHelperText>
+              )}
+            </FormControl>
+            <FormControl sx={{ mt: 2 }} error={Boolean(errors.email && touched.email)}>
               <FormLabel>Email</FormLabel>
               <Input type='email' placeholder='Enter your email...' {...getFieldProps('email')} />
               {errors.email && touched.email && (
@@ -92,24 +104,24 @@ function Login() {
               )}
             </FormControl>
             <Button type='submit' sx={{ mt: 4 }} fullWidth>
-              Sign in
+              Sign up
             </Button>
           </Form>
         </FormikProvider>
         <Typography
           endDecorator={
-            <Link component={RouterLink} to='/sign-up'>
-              Sign up
+            <Link component={RouterLink} to='/sign-in'>
+              Sign in
             </Link>
           }
           fontSize='sm'
           sx={{ alignSelf: 'center' }}
         >
-          Don&apos;t have an account?
+          Already have an account?
         </Typography>
       </Sheet>
     </main>
   );
 }
 
-export default Login;
+export default Signup;
