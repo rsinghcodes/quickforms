@@ -3,10 +3,11 @@ import { Box, CircularProgress, CssBaseline, CssVarsProvider, IconButton, extend
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { BiSolidMoon, BiSolidSun } from 'react-icons/bi';
 import { Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
 
 // pages
 const Home = lazy(() => import('./pages/Home'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
 
 const theme = extendTheme({
   fontFamily: {
@@ -56,7 +57,13 @@ function App() {
     <CssVarsProvider disableTransitionOnChange theme={theme}>
       <CssBaseline />
       <ColorSchemeToggle />
-      <Suspense fallback={<CircularProgress />}>
+      <Suspense
+        fallback={
+          <Box sx={{ display: 'grid', placeItems: 'center', minHeight: '100vh' }}>
+            <CircularProgress size='lg' />
+          </Box>
+        }
+      >
         <Box
           sx={{
             height: '100vh',
@@ -70,6 +77,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/sign-in' element={<Login />} />
+            <Route path='/sign-up' element={<Signup />} />
           </Routes>
         </Box>
       </Suspense>
