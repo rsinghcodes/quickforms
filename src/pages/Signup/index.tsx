@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
-  fullname: Yup.string().min(2).max(30).required('Full name is required'),
+  fullname: Yup.string().min(2).max(30).required('First name is required'),
   email: Yup.string().email('Enter a valid email').required('Email is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required')
 });
@@ -46,7 +46,7 @@ function Signup() {
           px: 4,
           display: 'flex',
           flexDirection: 'column',
-          gap: 4,
+          gap: 5,
           borderRadius: 'sm'
         }}
         variant='outlined'
@@ -55,11 +55,11 @@ function Signup() {
           <Typography level='h3' component='h3'>
             <b>Welcome!</b>
           </Typography>
-          <Typography level='body-sm'>Sign up to continue.</Typography>
+          <Typography level='body-md'>Sign up to continue.</Typography>
         </div>
         <FormikProvider value={formik}>
           <Form noValidate onSubmit={handleSubmit}>
-            <FormControl error={Boolean(errors.fullname && touched.fullname)}>
+            <FormControl error={Boolean(errors.fullname && touched.fullname)} size='lg'>
               <FormLabel>Full name</FormLabel>
               <Input type='text' placeholder='Enter your full name' {...getFieldProps('fullname')} />
               {errors.fullname && touched.fullname && (
@@ -69,7 +69,7 @@ function Signup() {
                 </FormHelperText>
               )}
             </FormControl>
-            <FormControl sx={{ mt: 2 }} error={Boolean(errors.email && touched.email)}>
+            <FormControl sx={{ mt: 3 }} error={Boolean(errors.email && touched.email)} size='lg'>
               <FormLabel>Email</FormLabel>
               <Input type='email' placeholder='Enter your email...' {...getFieldProps('email')} />
               {errors.email && touched.email && (
@@ -79,7 +79,7 @@ function Signup() {
                 </FormHelperText>
               )}
             </FormControl>
-            <FormControl sx={{ mt: 2 }} error={Boolean(touched.password && errors.password)}>
+            <FormControl sx={{ mt: 3 }} error={Boolean(touched.password && errors.password)} size='lg'>
               <FormLabel>Password</FormLabel>
               <Input
                 type={showPassword ? 'text' : 'password'}
@@ -103,18 +103,17 @@ function Signup() {
                 </FormHelperText>
               )}
             </FormControl>
-            <Button type='submit' sx={{ mt: 4 }} fullWidth>
+            <Button type='submit' sx={{ mt: 5 }} fullWidth size='lg'>
               Sign up
             </Button>
           </Form>
         </FormikProvider>
         <Typography
           endDecorator={
-            <Link component={RouterLink} to='/sign-in'>
+            <Link component={RouterLink} to='/sign-in' fontWeight='lg'>
               Sign in
             </Link>
           }
-          fontSize='sm'
           sx={{ alignSelf: 'center' }}
         >
           Already have an account?

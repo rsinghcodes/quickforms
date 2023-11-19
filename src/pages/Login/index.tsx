@@ -44,7 +44,7 @@ function Login() {
           px: 4,
           display: 'flex',
           flexDirection: 'column',
-          gap: 4,
+          gap: 5,
           borderRadius: 'sm'
         }}
         variant='outlined'
@@ -53,11 +53,11 @@ function Login() {
           <Typography level='h3' component='h3'>
             <b>Welcome!</b>
           </Typography>
-          <Typography level='body-sm'>Sign in to continue.</Typography>
+          <Typography level='body-md'>Sign in to continue.</Typography>
         </div>
         <FormikProvider value={formik}>
           <Form noValidate onSubmit={handleSubmit}>
-            <FormControl error={Boolean(errors.email && touched.email)}>
+            <FormControl error={Boolean(errors.email && touched.email)} size='lg'>
               <FormLabel>Email</FormLabel>
               <Input type='email' placeholder='Enter your email...' {...getFieldProps('email')} />
               {errors.email && touched.email && (
@@ -67,7 +67,7 @@ function Login() {
                 </FormHelperText>
               )}
             </FormControl>
-            <FormControl sx={{ mt: 2 }} error={Boolean(touched.password && errors.password)}>
+            <FormControl sx={{ mt: 3 }} error={Boolean(touched.password && errors.password)} size='lg'>
               <FormLabel>Password</FormLabel>
               <Input
                 type={showPassword ? 'text' : 'password'}
@@ -91,18 +91,17 @@ function Login() {
                 </FormHelperText>
               )}
             </FormControl>
-            <Button type='submit' sx={{ mt: 4 }} fullWidth>
+            <Button type='submit' sx={{ mt: 5 }} fullWidth size='lg'>
               Sign in
             </Button>
           </Form>
         </FormikProvider>
         <Typography
           endDecorator={
-            <Link component={RouterLink} to='/sign-up'>
+            <Link component={RouterLink} to='/sign-up' fontWeight='lg'>
               Sign up
             </Link>
           }
-          fontSize='sm'
           sx={{ alignSelf: 'center' }}
         >
           Don&apos;t have an account?
